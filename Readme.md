@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Valeriia Gubanova](https://up.htmlacademy.ru/javascript/26/user/2038079).
-* Наставник: `Дмитрий Гуляев`.
+* Наставник: [Дмитрий Гуляев](https://htmlacademy.ru/profile/dima).
 
 ---
 
