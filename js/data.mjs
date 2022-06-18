@@ -1,5 +1,4 @@
-// функция не используется в этой задаче
-// const isValidStringLength = (str, maxLength) => str.length <= maxLength;
+import {getRandomIntegerNumber0to1000, getRandomIntegerFromRange,getRandomArrayElement} from './util.mjs';
 
 const DESCRIPTIONS = [
   'Первое описание',
@@ -29,49 +28,44 @@ const NAMES = [
 ];
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
-const usedCommentId = [];
-let photoId = 0;
 
-const getRandomInteger = (min, max) => {
-  if (min > max) {
-    return new Error('Начальное значение диапазона больше конечного');
-  }
-  const integerMin = Math.ceil(min);
-  const integerMax = Math.floor(max);
-  return Math.floor(integerMin + Math.random() * (integerMax - integerMin + 1));
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-const getRandomCommentId = () => Math.floor(Math.random() * 1000);
-
-const getUniqCommentId = () => {
-  const commentId = getRandomCommentId();
-  if (usedCommentId.includes(commentId)) {
-    return  getUniqCommentId();
-  } else {
-    usedCommentId.push(commentId);
+const createUniqCommentIdGenerator = () => {
+  const usedCommentIds = [];
+  return () => {
+    let commentId = getRandomIntegerNumber0to1000();
+    while (usedCommentIds.includes(commentId)) {
+      commentId = getRandomIntegerNumber0to1000();
+    }
+    usedCommentIds.push(commentId);
     return commentId;
-  }
+  };
 };
+
+const getCommentId = createUniqCommentIdGenerator();
 
 const getComment = () => ({
-  id: getUniqCommentId(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  id: getCommentId(),
+  avatar: `img/avatar-${getRandomIntegerFromRange(1, 6)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
 
-const getPhotoInfo = () => {
-  photoId++;
-  return {
-    id: photoId,
-    url: `photos/${photoId}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(15, 200),
-    comments: Array.from( {length: getRandomInteger(1,5)}, getComment)
+const createPhotoInfoGenerator = () => {
+  let photoId = 0;
+  return () => {
+    photoId++;
+    return {
+      id: photoId,
+      url: `photos/${photoId}.jpg`,
+      description: getRandomArrayElement(DESCRIPTIONS),
+      likes: getRandomIntegerFromRange(15, 200),
+      comments: Array.from( {length: getRandomIntegerFromRange(1,5)}, getComment)
+    };
   };
 };
 
-// eslint-disable-next-line no-unused-vars
-const similarPhotoDescriptions = Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, getPhotoInfo);
+const getPhotoInfo = createPhotoInfoGenerator();
+
+const createSimilarPhotoDescriptions = () => Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, getPhotoInfo);
+
+export {createSimilarPhotoDescriptions};
