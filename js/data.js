@@ -1,4 +1,4 @@
-import {getRandomIntegerNumber0to1000, getRandomIntegerFromRange,getRandomArrayElement} from './util.mjs';
+import {getRandomIntegerNumber0to1000, getRandomIntegerFromRange,getRandomArrayElement} from './util.js';
 
 const DESCRIPTIONS = [
   'Первое описание',
