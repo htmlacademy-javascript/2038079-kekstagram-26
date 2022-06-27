@@ -14,4 +14,12 @@ const getRandomArrayElement = (elements) => elements[getRandomIntegerFromRange(0
 
 const getRandomIntegerNumber0to1000 = () => Math.floor(Math.random() * 1000);
 
-export {getRandomIntegerFromRange, getRandomArrayElement, getRandomIntegerNumber0to1000};
+const createElementInDOM = (tagName, className) => {
+  const element = document.createElement(tagName);
+  if (className) {
+    element.classList.add(className);
+  }
+  return element;
+};
+
+export {getRandomIntegerFromRange, getRandomArrayElement, getRandomIntegerNumber0to1000, createElementInDOM};
