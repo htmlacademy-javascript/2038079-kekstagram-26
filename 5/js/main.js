@@ -1,0 +1,3 @@
+import './small-pictures.js';
+
+
