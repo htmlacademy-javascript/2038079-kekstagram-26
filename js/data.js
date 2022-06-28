@@ -69,3 +69,4 @@ const getPhotoInfo = createPhotoInfoGenerator();
 const createSimilarPhotoDescriptions = () => Array.from({length: SIMILAR_PHOTO_DESCRIPTION_COUNT}, getPhotoInfo);
 
 export {createSimilarPhotoDescriptions};
+
